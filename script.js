@@ -192,3 +192,12 @@ window.onload = function () {
         window.location.href = "index.html";
     }
 };
+import { signInWithGoogle, signOutUser } from "./firebase-config.js";
+
+// Attach event listener to Google Sign-In button
+document.addEventListener("DOMContentLoaded", () => {
+    const googleBtn = document.querySelector(".google-btn");
+    if (googleBtn) {
+        googleBtn.addEventListener("click", signInWithGoogle);
+    }
+});
