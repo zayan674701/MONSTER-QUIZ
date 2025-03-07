@@ -61,7 +61,11 @@
         <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+   <!-- ✅ Load Firebase Scripts in the Correct Order -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8074404404042168"
      crossorigin="anonymous"></script>
 
