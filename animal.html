@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom CSS */
+       
+        h1 {
+            margin: 0;
+        }
+
+        .quiz-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-container h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .quiz-question {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .quiz-question h3 {
+            color: #333;
+            margin: 0;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .quiz-question label:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quiz-question input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .correct {
+            background-color: #28a745 !important; /* Green for correct answers */
+            color: white;
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important; /* Red for incorrect answers */
+            color: white;
+        }
+
+        #submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #quiz-results {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #score {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 70px;
+        }
+
+        .question-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+   <!-- Header -->
+   <header>
+    <div class="logo">
+        <h1>MONSTER QUIZ</h1>
+    </div>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <nav id="menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="create.html">Create Quiz</a></li>
+            <li><a href="play.html">Play Quiz</a></li>
+            <li><a href="results.html">View Results</a></li>
+           
+            <li><a href="login.html">Login</a></li>
+        
+        </ul>
+    </nav>
+</header>
+
+    <div class="quiz-container">
+        <h2 id="quiz-title">Animals Quiz</h2>
+        <form id="quiz-form">
+            <div id="quiz-container"></div>
+            <button type="button" id="submit-button" onclick="checkAnswer()">Submit</button>
+        </form>
+        <div id="quiz-results">
+            <h3>Your Results</h3>
+            <p id="score"></p>
+        </div>
+        <div class="quiz-container">
+            <!-- Your quiz content goes here -->
+    
+            <div class="button-container">
+                <!-- Restart Button -->
+                <button onclick="restartQuiz()">Restart</button>
+    
+                <!-- Exit Button -->
+                <button onclick="exitQuiz()">Exit</button>
+    
+                <!-- Share Link Button -->
+                <button onclick="shareLink()">Share Link</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const animalsQuiz = [
+            {
+                question: "Which is the largest animal on earth?",
+                options: ["Elephant", "Blue Whale", "Shark", "Giraffe"],
+                correct: "Blue Whale"
+            },
+            {
+                question: "What animal is known for its black and white stripes?",
+                options: ["Zebra", "Tiger", "Cheetah", "Leopard"],
+                correct: "Zebra"
+            },
+            {
+                question: "Which bird is known for its ability to mimic human speech?",
+                options: ["Parrot", "Sparrow", "Crow", "Pigeon"],
+                correct: "Parrot"
+            },
+            {
+                question: "Which animal is the largest land carnivore?",
+                options: ["Lion", "Tiger", "Polar Bear", "Grizzly Bear"],
+                correct: "Polar Bear"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const questionData = animalsQuiz[currentQuestionIndex];
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+                <div class="quiz-question">
+                    <div class="question-number">Question ${currentQuestionIndex + 1}</div>
+                    <h3>${questionData.question}</h3>
+                    ${questionData.options.map(option => `
+                        <label>
+                            <input type="radio" name="question${currentQuestionIndex}" value="${option}">
+                            ${option}
+                        </label>
+                    `).join('<br>')}
+                </div>
+            `;
+        }
+
+        function checkAnswer() {
+            const selectedAnswer = document.querySelector(`input[name="question${currentQuestionIndex}"]:checked`);
+            const submitButton = document.getElementById('submit-button');
+
+            if (selectedAnswer) {
+                const isCorrect = selectedAnswer.value === animalsQuiz[currentQuestionIndex].correct;
+
+                if (isCorrect) {
+                    score++;
+                    selectedAnswer.parentElement.classList.add("correct");
+                } else {
+                    selectedAnswer.parentElement.classList.add("incorrect");
+                }
+
+                submitButton.disabled = true;
+
+                setTimeout(() => {
+                    if (currentQuestionIndex < animalsQuiz.length - 1) {
+                        currentQuestionIndex++;
+                        loadQuestion();
+                        submitButton.disabled = false;
+                    } else {
+                        showResults();
+                    }
+                }, 1000);
+            } else {
+                alert("Please select an answer before submitting.");
+            }
+        }
+
+        function showResults() {
+            const results = document.getElementById('quiz-results');
+            const scoreDisplay = document.getElementById('score');
+            scoreDisplay.innerText = `You got ${score} out of ${animalsQuiz.length} correct.`;
+            results.style.display = 'block';
+        }
+
+        document.getElementById('quiz-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
+        loadQuestion();  // Initial question loading
+
+
+                // Restart the quiz
+                function restartQuiz() {
+            // Reset your quiz logic, scores, and questions
+            alert("Quiz restarted!");
+            window.location.reload(); // Reloads the page to restart
+        }
+
+        // Exit the quiz and redirect to the homepage (or any other page)
+        function exitQuiz() {
+            window.location.href = "index.html"; // Redirect to the homepage
+        }
+
+        // Share the quiz link
+        function shareLink() {
+            const url = window.location.href; // Get current page URL
+            navigator.clipboard.writeText(url) // Copy URL to clipboard
+                .then(() => alert("Link copied to clipboard!"))
+                .catch((err) => alert("Failed to copy the link: " + err));
+        }
+    </script>
+
+</body>
+</html>

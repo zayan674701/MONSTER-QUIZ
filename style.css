@@ -594,3 +594,173 @@ nav ul li a:hover {
     border-radius: 50%; /* Makes the image circular */
   }
 
+/* Recent Quizzes Section */
+.recent-quizzes {
+    padding: 40px 20px;
+}
+
+.recent-quizzes h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.quiz-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: #007BFF;
+}
+
+.quiz-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quiz-item h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.quiz-item p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.quiz-item .btn-secondary {
+    background-color: #0077ff;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.quiz-item .btn-secondary:hover {
+    background-color: #005bb5;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 40px 20px;
+    background-color: #f1f1f1;
+}
+
+.testimonials h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.testimonial-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.testimonial-item p {
+    font-style: italic;
+    font-size: 18px;
+}
+
+.testimonial-item span {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero .btn-primary {
+        font-size: 16px;
+    }
+
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-item {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .quiz-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .quiz-item {
+        width: 80%;
+    }
+
+    .testimonials .testimonial-item {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 10px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero .btn-primary {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .features {
+        padding: 20px;
+    }
+
+    .feature-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .quiz-item {
+        width: 100%;
+    }
+
+    .testimonials .testimonial-item {
+        width: 100%;
+    }
+}
+
+
+
