@@ -580,5 +580,17 @@ nav ul li a:hover {
         flex-direction: column;
     }
 }
-
+#logo-image {
+    width: 100px;  /* Fixed width for the logo */
+    height: 100px; /* Fixed height for the logo */
+    object-fit: cover; /* Ensure the image is resized to fill the area without distortion */
+    border-radius: 50%; /* Makes the image circular */
+  }
+  
+  #user-logo {
+    width: 40px; /* Fixed width for the user logo in the profile section */
+    height: 40px; /* Fixed height for the user logo in the profile section */
+    object-fit: cover; /* Ensure the image fits without distortion */
+    border-radius: 50%; /* Makes the image circular */
+  }
 

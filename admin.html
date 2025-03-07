@@ -9,32 +9,50 @@
 <body>
 
 <header>
-    <h1>Admin Panel</h1>
-    <button onclick="logout()">Logout</button>
+    <div class="logo">
+        <h1>MONSTER QUIZ ADMIN PANEL</h1>
+    </div>
+    <div class="profile-container">
+        <img id="user-logo" src="default-logo.png" alt="User Logo">
+        <span id="user-name">Admin</span>
+    </div>
 </header>
 
-<div class="admin-container">
-    <h2>Registered Users</h2>
-    <p>Total Users: <span id="totalUsers">0</span></p>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Signup Date</th>
-            </tr>
-        </thead>
-        <tbody id="usersTable"></tbody>
-    </table>
+<div class="admin-panel">
+    <button onclick="showQuizForm()">Add New Quiz</button>
+
+    <div id="quiz-form" class="quiz-form">
+        <h3>Create or Edit Quiz</h3>
+        <label for="quiz-title">Quiz Title:</label>
+        <input type="text" id="quiz-title" placeholder="Enter quiz title" required>
+
+        <label for="quiz-questions">Questions (JSON format):</label>
+        <textarea id="quiz-questions" placeholder='[{"question": "Q1", "answer": "A1"}]' required></textarea>
+
+        <button id="submit-quiz" onclick="addQuiz()">Create Quiz</button>
+    </div>
+
+    <div id="quiz-list">
+        <h3>Existing Quizzes</h3>
+        <ul id="quiz-list-ul"></ul>
+    </div>
+
+    <div id="visitor-stats">
+        <h3>Visitor Stats</h3>
+        <p>Total Visitors: <span id="total-visits">0</span></p>
+        <p>Unique Visitors: <span id="unique-visits">0</span></p>
+    </div>
 </div>
 
 <footer>
-    <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+    <p>&copy; 2025 Monster Quiz. All rights reserved.</p>
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"></script>
+<script src="firebase-config.js"></script>
 <script src="admin.js"></script>
 
 </body>

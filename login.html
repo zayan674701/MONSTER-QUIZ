@@ -13,7 +13,7 @@
             <h1>MONSTER QUIZ</h1>
         </div>
         <div class="profile-container">
-            <img id="user-logo" src="default-logo.png" alt="User Logo">
+           
             <span id="user-name">Guest</span>
         </div>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
@@ -32,9 +32,15 @@
     <div class="login-container">
         <h2>Login</h2>
         <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
-        <input type="file" id="logo-upload" accept="image/*" onchange="uploadLogo(event)">
-        <input type="text" id="username-input" placeholder="Enter your username">
-        <button onclick="saveUsername()">Save Username</button>
+
+        <div class="input-container">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+
+         
+    
+          <button type="submit">Login</button>
     </div>
 <footer>
     <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
@@ -47,6 +53,7 @@
 <!-- ✅ Load Firebase Configuration & Script -->
 <script src="firebase-config.js"></script>
 <script src="script.js"></script>
+<script src="login.js"></script>
 
 <script type="module">
     import { signInWithGoogle } from "./firebase-config.js";

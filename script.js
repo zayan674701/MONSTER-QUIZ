@@ -160,3 +160,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function previewLogo(event) {
+    const logoPreview = document.getElementById('logo-preview');
+    const logoImage = document.getElementById('logo-image');
+    const userLogo = document.getElementById('user-logo');
+    
+    // Show the uploaded image as a preview
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        logoImage.src = reader.result;
+        userLogo.src = reader.result; // Display user logo in profile section
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+

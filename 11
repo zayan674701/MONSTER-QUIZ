@@ -29,60 +29,28 @@
         </nav>
     </header>
 
-<div class="login-container">
-    <h2>Login</h2>
-    <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
-    <input type="file" id="logo-upload" accept="image/*" onchange="uploadLogo(event)">
-</div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
 
+        <div class="input-container">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+
+         <div class="logo-upload">
+        <label for="logo">Upload Logo:</label>
+        <input type="file" id="logo" name="logo" accept="image/*" onchange="previewLogo(event)">
+        <div id="logo-preview" class="logo-preview">
+          <img id="logo-image" src="" alt="Logo Preview">
+        </div>
+      </div>
+    
+          <button type="submit">Login</button>
+    </div>
 <footer>
     <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
 </footer>
-
-<!-- ✅ Load Firebase Scripts in the Correct Order -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-
-<!-- ✅ Load Firebase Configuration & Script -->
-<script src="firebase-config.js"></script>
-<script src="script.js"></script>
-
-<script>
-    function uploadLogo(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                localStorage.setItem("userLogo", e.target.result);
-                document.getElementById("user-logo").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    window.onload = function () {
-        let user = JSON.parse(localStorage.getItem("loggedInUser"));
-        let logo = localStorage.getItem("userLogo");
-        if (user) {
-            document.getElementById("user-name").innerText = user.name;
-        }
-        if (logo) {
-            document.getElementById("user-logo").src = logo;
-        }
-    };
-
-    import { signInWithGoogle } from "./firebase-config.js";
-  
-  document.querySelector(".google-btn").addEventListener("click", signInWithGoogle);
-</script>
-
-</body>
-</html>
-
-
-
-
-
 
 <!-- ✅ Load Firebase Scripts in the Correct Order -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
@@ -96,5 +64,46 @@
     import { signInWithGoogle } from "./firebase-config.js";
   
     document.querySelector(".google-btn").addEventListener("click", signInWithGoogle);
+
+
+
+    function uploadLogo(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem("userLogo", e.target.result);
+                document.getElementById("user-logo").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function saveUsername() {
+        const username = document.getElementById("username-input").value;
+        if (username.trim() !== "") {
+            localStorage.setItem("userName", username);
+            document.getElementById("user-name").innerText = username;
+        }
+    }
+
+    window.onload = function () {
+        let user = JSON.parse(localStorage.getItem("loggedInUser"));
+        let logo = localStorage.getItem("userLogo");
+        let savedUsername = localStorage.getItem("userName");
+        
+        if (user) {
+            document.getElementById("user-name").innerText = user.name;
+        }
+        if (savedUsername) {
+            document.getElementById("user-name").innerText = savedUsername;
+        }
+        if (logo) {
+            document.getElementById("user-logo").src = logo;
+        }
+    };
   </script>
   
+
+</body>
+</html>
