@@ -172,7 +172,7 @@ window.onload = function () {
 
 // Check if the user is an admin (by email)
 function isAdmin(email) {
-    const adminEmails = ['admin@example.com']; // List of admin emails
+    const adminEmails = ['zayan.sh6747@gmail.com']; // List of admin emails
     return adminEmails.includes(email);
 }
 
