@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONSTER QUIZ - View Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>MONSTER QUIZ</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="create.html">Create Quiz</a></li>
+                <li><a href="play.html">Play Quiz</a></li>
+                <li><a href="results.html">View Results</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="quiz-container">
+        <h2>Select a Quiz to View Results</h2>
+        <select id="quizList"></select>
+        <button onclick="viewResults()">View Results</button>
+
+        <div id="resultsContainer" class="hidden">
+            <h2>Quiz Results</h2>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function loadQuizList() {
+            let quizList = document.getElementById("quizList");
+            quizList.innerHTML = "";
+
+            for (let key in localStorage) {
+                if (key.startsWith("quiz_")) {
+                    let option = document.createElement("option");
+                    option.value = key;
+                    option.textContent = key.replace("quiz_", "");
+                    quizList.appendChild(option);
+                }
+            }
+        }
+
+        function viewResults() {
+            let selectedQuiz = document.getElementById("quizList").value;
+            if (!selectedQuiz) {
+                alert("Please select a quiz!");
+                return;
+            }
+
+            let storedQuiz = JSON.parse(localStorage.getItem(selectedQuiz));
+
+            if (!storedQuiz || !storedQuiz.results || storedQuiz.results.length === 0) {
+                alert("No results available for this quiz!");
+                document.getElementById("resultsContainer").classList.add("hidden");
+                return;
+            }
+
+            let resultsTable = document.getElementById("resultsTable").getElementsByTagName("tbody")[0];
+            resultsTable.innerHTML = ""; // Clear previous results
+
+            storedQuiz.results.forEach(result => {
+                let row = resultsTable.insertRow();
+                row.insertCell(0).textContent = result.name;
+                row.insertCell(1).textContent = `${result.score}/${storedQuiz.questions.length}`;
+            });
+
+            document.getElementById("resultsContainer").classList.remove("hidden");
+        }
+
+        window.onload = loadQuizList;
+    </script>
+</body>
+</html>

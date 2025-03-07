@@ -138,3 +138,11 @@ window.onload = () => {
         loadQuiz(params.get("quiz"));
     }
 };
+function toggleMenu() {
+    document.getElementById("nav-menu").classList.toggle("active");
+}
+
+function toggleMenu() {
+    let menu = document.getElementById("menu");
+    menu.classList.toggle("active");
+}

@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Kings - Create Quiz</title>
+    <title>MONSTER QUIZ - Create Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Quiz Creator</h1>
+        <h1>MONSTER QUIZ</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="create.html">Create Quiz</a></li>
                 <li><a href="play.html">Play Quiz</a></li>
+                <li><a href="results.html">View Results</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
             </ul>
@@ -24,22 +25,24 @@
         <h2>Create Your Quiz</h2>
         <input type="text" id="quizTitle" placeholder="Enter Quiz Title" class="cr">
         
-        <div id="questions-container"></div>
-        
-        <button onclick="addQuestion()">Add Question</button>
-        <button onclick="saveQuiz()">Save Quiz</button>
-
         <label for="quizType">Quiz Type:</label>
         <select id="quizType">
             <option value="public">Public</option>
             <option value="private">Private</option>
         </select>
 
+        <div id="questions-container"></div>
+        
+        <button onclick="addQuestion()">Add Question</button>
+        <button onclick="saveQuiz()">Save Quiz</button>
+
         <div id="share-container" style="display:none; margin-top: 20px;">
             <p>Share this quiz with your friends:</p>
             <input type="text" id="quiz-link" readonly>
             <button onclick="copyLink()">Copy Link</button>
         </div>
+
+        <button onclick="viewResults()">View Quiz Results</button>
     </div>
 
     <footer>
@@ -83,7 +86,7 @@
         }
 
         function saveQuiz() {
-            let quizTitle = document.getElementById("quizTitle").value;
+            let quizTitle = document.getElementById("quizTitle").value.trim();
             let quizType = document.getElementById("quizType").value;
 
             if (!quizTitle) {
@@ -92,16 +95,16 @@
             }
 
             let quizData = { type: quizType, questions: [] };
-
             let questionBoxes = document.querySelectorAll(".question-box");
+
             questionBoxes.forEach(box => {
-                let questionText = box.children[0].value;
+                let questionText = box.children[0].value.trim();
                 let imageFile = box.children[1].files[0];
-                let options = Array.from(box.children[2].children).map(opt => opt.value);
-                let correctOption = box.children[3].value;
+                let options = Array.from(box.children[2].children).map(opt => opt.value.trim());
+                let correctOption = box.children[3].value.trim();
 
                 if (!questionText || options.some(opt => !opt) || !correctOption) {
-                    alert("Please complete all fields!");
+                    alert("Please complete all fields before saving!");
                     return;
                 }
 
@@ -109,16 +112,19 @@
                     text: questionText,
                     image: imageFile ? URL.createObjectURL(imageFile) : null,
                     options: options,
-                    correct: correctOption
+                    correct: parseInt(correctOption)
                 };
                 quizData.questions.push(question);
             });
 
             localStorage.setItem("quiz_" + quizTitle, JSON.stringify(quizData));
 
-            let quizLink = `${window.location.origin}/play.html?quiz=${encodeURIComponent(quizTitle)}`;
-            document.getElementById("quiz-link").value = quizLink;
-            document.getElementById("share-container").style.display = "block";
+            // Generate quiz link only for public quizzes
+            if (quizType === "public") {
+                let quizLink = `${window.location.origin}/play.html?quiz=${encodeURIComponent(quizTitle)}`;
+                document.getElementById("quiz-link").value = quizLink;
+                document.getElementById("share-container").style.display = "block";
+            }
 
             alert("Quiz saved successfully!");
         }
@@ -128,6 +134,15 @@
             linkField.select();
             document.execCommand("copy");
             alert("Quiz link copied!");
+        }
+
+        function viewResults() {
+            let quizTitle = document.getElementById("quizTitle").value.trim();
+            if (!quizTitle) {
+                alert("Enter a quiz title to view results!");
+                return;
+            }
+            window.location.href = `results.html?quiz=${encodeURIComponent(quizTitle)}`;
         }
     </script>
 </body>

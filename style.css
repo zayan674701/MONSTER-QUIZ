@@ -212,6 +212,8 @@ button:hover {
     background:#007bff ;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: block;
+    
 }
 
 /* Question Box Hover Effect */
@@ -479,3 +481,104 @@ body {
 .quiz-container {
     animation: fadeIn 0.5s ease-in-out;
 }
+
+
+
+
+
+
+
+/* General Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #007bff;
+    padding: 15px 20px;
+    color: white;
+}
+
+/* Logo */
+.logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Mobile Menu Button */
+.menu-btn {
+    display: none;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #007bff;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li {
+        display: block;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+    }
+
+    nav.active {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
