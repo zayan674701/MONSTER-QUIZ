@@ -19,7 +19,6 @@
                 <li><a href="play.html">Play Quiz</a></li>
                 <li><a href="results.html">View Results</a></li>
                 <li><a href="login.html">Login</a></li>
-                
             </ul>
         </nav>
     </header>
@@ -29,10 +28,16 @@
         <input type="text" id="quizTitle" placeholder="Enter Quiz Title" class="cr">
         
         <label for="quizType">Quiz Type:</label>
-        <select id="quizType">
+        <select id="quizType" onchange="togglePinField()">
             <option value="public">Public</option>
             <option value="private">Private</option>
         </select>
+
+        <!-- PIN field for private quiz -->
+        <div id="pinField" style="display:none;">
+            <label for="pinCode">Set a PIN code (4 digits):</label>
+            <input type="text" id="pinCode" maxlength="4" placeholder="Enter 4-digit PIN" />
+        </div>
 
         <div id="questions-container"></div>
         
@@ -53,6 +58,16 @@
     </footer>
 
     <script>
+        function togglePinField() {
+            let quizType = document.getElementById("quizType").value;
+            let pinField = document.getElementById("pinField");
+            if (quizType === "private") {
+                pinField.style.display = "block";
+            } else {
+                pinField.style.display = "none";
+            }
+        }
+
         function addQuestion() {
             let container = document.getElementById("questions-container");
 
@@ -81,16 +96,26 @@
             correctAnswer.min = "1";
             correctAnswer.max = "4";
 
+            // Create the remove button
+            let removeButton = document.createElement("button");
+            removeButton.textContent = "Remove Question";
+            removeButton.classList.add("remove-btn");
+            removeButton.onclick = function() {
+                container.removeChild(questionBox);
+            };
+
             questionBox.appendChild(questionInput);
             questionBox.appendChild(imgInput);
             questionBox.appendChild(optionsContainer);
             questionBox.appendChild(correctAnswer);
+            questionBox.appendChild(removeButton);
             container.appendChild(questionBox);
         }
 
         function saveQuiz() {
             let quizTitle = document.getElementById("quizTitle").value.trim();
             let quizType = document.getElementById("quizType").value;
+            let pinCode = document.getElementById("pinCode").value.trim();
 
             if (!quizTitle) {
                 alert("Please enter a quiz title!");
@@ -98,6 +123,13 @@
             }
 
             let quizData = { type: quizType, questions: [] };
+            if (quizType === "private" && !pinCode) {
+                alert("Please set a PIN code for private quiz!");
+                return;
+            }
+
+            quizData.pin = pinCode;  // Store the PIN for private quizzes
+
             let questionBoxes = document.querySelectorAll(".question-box");
 
             questionBoxes.forEach(box => {
@@ -147,10 +179,79 @@
             }
             window.location.href = `results.html?quiz=${encodeURIComponent(quizTitle)}`;
         }
+
         function toggleMenu() {
-    let menu = document.getElementById("menu");
-    menu.classList.toggle("active");
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+
+
+            function saveQuiz() {
+    let quizTitle = document.getElementById("quizTitle").value.trim();
+    let quizType = document.getElementById("quizType").value;
+    let pinCode = document.getElementById("pinCode").value.trim();
+
+    if (!quizTitle) {
+        alert("Please enter a quiz title!");
+        return;
+    }
+
+    let quizData = { type: quizType, questions: [] };
+    if (quizType === "private" && !pinCode) {
+        alert("Please set a PIN code for private quiz!");
+        return;
+    }
+
+    quizData.pin = pinCode;  // Store the PIN for private quizzes
+
+    let questionBoxes = document.querySelectorAll(".question-box");
+
+    questionBoxes.forEach(box => {
+        let questionText = box.children[0].value.trim();
+        let imageFile = box.children[1].files[0];
+        let options = Array.from(box.children[2].children).map(opt => opt.value.trim());
+        let correctOption = box.children[3].value.trim();
+
+        if (!questionText || options.some(opt => !opt) || !correctOption) {
+            alert("Please complete all fields before saving!");
+            return;
+        }
+
+        let question = {
+            text: questionText,
+            image: imageFile ? URL.createObjectURL(imageFile) : null,
+            options: options,
+            correct: parseInt(correctOption)
+        };
+        quizData.questions.push(question);
+    });
+
+    localStorage.setItem("quiz_" + quizTitle, JSON.stringify(quizData));
+
+    // Always generate quiz link
+    let quizLink = `${window.location.origin}/play.html?quiz=${encodeURIComponent(quizTitle)}`;
+    document.getElementById("quiz-link").value = quizLink;
+
+    // Display the share container
+    document.getElementById("share-container").style.display = "block";
+
+    // Append the PIN requirement for private quizzes
+    if (quizType === "private") {
+        document.getElementById("quiz-link").value += " (PIN required for access)";
+    }
+
+    alert("Quiz saved successfully!");
 }
+
+        }
+
+
+          // Always generate quiz link
+    let quizLink = `${window.location.origin}/play.html?quiz=${encodeURIComponent(quizTitle)}`;
+    document.getElementById("quiz-link").value = quizLink;
+
+    // Display the share container
+    document.getElementById("share-container").style.display = "block";
+
     </script>
 </body>
 </html>

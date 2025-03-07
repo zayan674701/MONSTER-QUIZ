@@ -178,7 +178,7 @@ button {
     margin: 10px;
     padding: 12px 20px;
     font-size: 16px;
-    background: #007BFF;
+    background: #ffcc00;
     color: white;
     border: none;
     cursor: pointer;
@@ -189,7 +189,7 @@ button {
 
 /* Button Hover Effect */
 button:hover {
-    background: #0056b3;
+   
     transform: scale(1.1);
 }
 
@@ -320,7 +320,7 @@ input:focus {
     }
 
     button {
-        width: 100%;
+        width: 90%;
         padding: 15px;
         font-size: 18px;
     }
@@ -370,15 +370,6 @@ input:focus {
 
 
 
-/* General Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
 
 /* Quiz Container */
 .quiz-container {
@@ -537,7 +528,7 @@ nav ul li a:hover {
 /* Mobile Menu Button */
 .menu-btn {
     display: none;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     background: none;
     border: none;
     color: white;
@@ -756,4 +747,377 @@ nav ul li a:hover {
 }
 
 
+.rate{
+    width: 90%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin-left: 50px;
+}
+.container {
+    background-color:#007bff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* max-width: 1500px; */
+}
 
+h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.rating, .comment {
+    margin-bottom: 20px;
+}
+
+.rating input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.comment textarea {
+    width: 95%;
+    height: 120px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+    resize: vertical;
+}
+
+.bbt {
+    background-color: #FFD700;
+    color: rgb(0, 0, 0);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 90%;
+    margin-top: 10px;
+}
+
+
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .comment textarea {
+        height: 100px;
+    }
+
+    .comment button {
+        font-size: 1rem;
+    }
+}
+
+/* Rating section visibility */
+.rating-section, .comment-section {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Subscription Section Styles */
+.subscription-container {
+    background-color: #fff;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 50px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-plans {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.plan {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+}
+
+.plan h3 {
+    margin: 0;
+    color: #2e3a59;
+}
+
+.plan p {
+    margin: 15px 0;
+    color: #5c5c5c;
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.plan ul li {
+    margin: 8px 0;
+}
+
+.plan button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.plan button:hover {
+    background-color: #45a049;
+}
+
+/* Subscription Benefits */
+.subscription-benefits {
+    margin-top: 40px;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-benefits ul {
+    list-style: none;
+    padding: 0;
+}
+
+.subscription-benefits ul li {
+    margin: 12px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Payment Upload Section */
+.payment-upload {
+    margin-top: 30px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-upload input[type="file"] {
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.payment-upload button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.payment-upload button:hover {
+    background-color: #45a049;
+}
+
+/* Payment Options Section */
+.payment-options {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.payment-options button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.payment-options button:hover {
+    background-color: #0056b3;
+}
+
+/* Payment Confirmation */
+#payment-confirmation {
+    background-color: #d4edda;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#payment-confirmation h3 {
+    color: #155724;
+}
+
+#payment-confirmation button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#payment-confirmation button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .pricing-plans {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+/* Quiz container styles */
+.quiz-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.quiz-container input,
+.quiz-container select,
+.quiz-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #000;
+}
+
+.quiz-container input[type="text"],
+.quiz-container input[type="number"],
+.quiz-container input[type="file"] {
+    width: 90%;
+    display: inline-block;
+}
+
+.quiz-container .question-box {
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.quiz-container .question-box input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.quiz-container .question-box div {
+    margin-bottom: 10px;
+}
+
+
+
+/* Share and results section */
+#share-container {
+    margin-top: 20px;
+}
+
+#share-container input {
+    width: 70%;
+}
+
+#share-container button {
+    width: 25%;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .quiz-container {
+        padding: 10px;
+    }
+
+    .quiz-container input,
+    .quiz-container select,
+    .quiz-container button {
+        font-size: 0.9em;
+    }
+
+    #share-container input,
+    #share-container button {
+        width: 100%;
+    }
+}

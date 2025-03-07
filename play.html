@@ -19,17 +19,18 @@
                 <li><a href="play.html">Play Quiz</a></li>
                 <li><a href="results.html">View Results</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="quiz-container">
         <h2>Select a Quiz</h2>
-        <select id="quizList"></select>
+        <select id="quizList" onchange="handleQuizSelection()"></select>
 
         <!-- Input for User Name -->
         <input type="text" id="userName" placeholder="Enter Your Name">
+        <!-- PIN input will be shown only for private quizzes -->
+        <input type="password" id="quizPin" placeholder="Enter Quiz PIN" style="display:none;">
         <button onclick="startQuiz()">Start Quiz</button>
 
         <div id="quizSection" class="hidden">
@@ -48,6 +49,7 @@
         let currentIndex = 0;
         let score = 0;
         let userName = "";
+        let quizPin = "";
 
         function loadQuizList() {
             let quizList = document.getElementById("quizList");
@@ -58,19 +60,31 @@
             for (let key in localStorage) {
                 if (key.startsWith("quiz_")) {
                     let quizData = JSON.parse(localStorage.getItem(key));
-                    if (quizData && (quizData.type === "public" || loggedInUser)) {
-                        let option = document.createElement("option");
-                        option.value = key;
-                        option.textContent = key.replace("quiz_", "") + ` (${quizData.type})`;
-                        quizList.appendChild(option);
-                    }
+                    let option = document.createElement("option");
+                    option.value = key;
+                    option.textContent = key.replace("quiz_", "") + ` (${quizData.type})`;
+                    quizList.appendChild(option);
                 }
+            }
+        }
+
+        // Display PIN field if the selected quiz is private
+        function handleQuizSelection() {
+            let selectedQuiz = document.getElementById("quizList").value;
+            let quizData = JSON.parse(localStorage.getItem(selectedQuiz));
+            
+            // If quiz is private, show the PIN input
+            if (quizData && quizData.type === "private") {
+                document.getElementById("quizPin").style.display = "block";
+            } else {
+                document.getElementById("quizPin").style.display = "none";
             }
         }
 
         function startQuiz() {
             let selectedQuiz = document.getElementById("quizList").value;
             userName = document.getElementById("userName").value.trim();
+            quizPin = document.getElementById("quizPin").value.trim();
 
             if (!selectedQuiz) {
                 alert("Please select a quiz!");
@@ -86,6 +100,12 @@
 
             if (!currentQuiz || !currentQuiz.questions || currentQuiz.questions.length === 0) {
                 alert("This quiz has no questions!");
+                return;
+            }
+
+            // Check for private quiz and validate PIN
+            if (currentQuiz.type === "private" && currentQuiz.pin !== quizPin) {
+                alert("Incorrect PIN!");
                 return;
             }
 
@@ -161,6 +181,7 @@
 
             if (quizTitle) {
                 document.getElementById("quizList").value = "quiz_" + quizTitle;
+                handleQuizSelection();
                 startQuiz();
             }
         }
@@ -169,10 +190,12 @@
             loadQuizList();
             getQuizFromURL();
         };
+
+        // Toggle menu visibility
         function toggleMenu() {
-    let menu = document.getElementById("menu");
-    menu.classList.toggle("active");
-}
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
     </script>
 </body>
 </html>

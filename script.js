@@ -1,8 +1,10 @@
+// Show quiz creation form
 function showCreateQuiz() {
     document.getElementById("home").classList.add("hidden");
     document.getElementById("create-quiz").classList.remove("hidden");
 }
 
+// Add a new question dynamically to the quiz
 function addQuestion() {
     let container = document.getElementById("questions-container");
     
@@ -28,6 +30,7 @@ function addQuestion() {
     container.appendChild(div);
 }
 
+// Save the quiz to localStorage
 function saveQuiz() {
     if (!isUserLoggedIn()) {
         alert("Please log in to create a quiz.");
@@ -61,10 +64,12 @@ function saveQuiz() {
     prompt("Copy this link and share it:", quizLink);
 }
 
+// Check if the user is logged in
 function isUserLoggedIn() {
     return localStorage.getItem("loggedInUser") !== null;
 }
 
+// Load the quiz data from localStorage
 function loadQuiz(quizId) {
     let quizData = JSON.parse(localStorage.getItem(quizId));
     if (!quizData) {
@@ -79,6 +84,7 @@ function loadQuiz(quizId) {
     quizContent.innerHTML = "";
     let currentQuestionIndex = 0;
 
+    // Display questions one at a time
     function showQuestion(index) {
         let q = quizData[index];
         quizContent.innerHTML = `
@@ -92,6 +98,7 @@ function loadQuiz(quizId) {
         `;
     }
 
+    // Check if the selected answer is correct
     window.checkAnswer = function(selected, correct, index) {
         let options = document.querySelectorAll(".quiz-option");
         options.forEach((btn, i) => {
@@ -116,38 +123,32 @@ function loadQuiz(quizId) {
     showQuestion(currentQuestionIndex);
 }
 
+// Restart the quiz
 function restartQuiz() {
     location.href = "index.html";
 }
 
+// Go back to the home page
 function goHome() {
     document.getElementById("home").classList.remove("hidden");
     document.getElementById("create-quiz").classList.add("hidden");
     document.getElementById("quiz-container").classList.add("hidden");
 }
 
+// Logout function
 function logout() {
     localStorage.removeItem("loggedInUser");
     alert("You have logged out.");
     window.location.href = "index.html";
 }
 
-window.onload = () => {
-    let params = new URLSearchParams(window.location.search);
-    if (params.has("quiz")) {
-        loadQuiz(params.get("quiz"));
-    }
-};
-function toggleMenu() {
-    document.getElementById("nav-menu").classList.toggle("active");
-}
-
+// Toggle the navigation menu
 function toggleMenu() {
     let menu = document.getElementById("menu");
     menu.classList.toggle("active");
 }
 
-
+// Handle Google SignIn and SignOut buttons
 document.addEventListener("DOMContentLoaded", () => {
     const googleBtn = document.querySelector(".google-btn");
     if (googleBtn) {
@@ -160,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Preview uploaded logo image
 function previewLogo(event) {
     const logoPreview = document.getElementById('logo-preview');
     const logoImage = document.getElementById('logo-image');
@@ -168,12 +170,55 @@ function previewLogo(event) {
     // Show the uploaded image as a preview
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = function() {
-        logoImage.src = reader.result;
-        userLogo.src = reader.result; // Display user logo in profile section
-      };
-      reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onload = function() {
+            logoImage.src = reader.result;
+            userLogo.src = reader.result; // Display user logo in profile section
+        };
+        reader.readAsDataURL(file);
     }
-  }
+}
 
+// Check if the user is logged in to allow rating and comment
+window.onload = function() {
+    if (isUserLoggedIn()) {
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+        document.getElementById("welcome-message").innerText = `Welcome, ${user.name}! Please leave your rating and comment below.`;
+        document.querySelector(".rating-section").style.display = "block";
+        document.querySelector(".comment-section").style.display = "block";
+    } else {
+        document.getElementById("welcome-message").innerText = "You need to be logged in to rate and comment.";
+        document.getElementById("error-message").innerText = "Please log in first.";
+    }
+}
+
+// Submit rating and comment
+function submitCommentAndRating() {
+    if (!isUserLoggedIn()) {
+        document.getElementById("error-message").innerText = "You need to be logged in to submit a rating and comment.";
+        return;
+    }
+
+    // Get comment and rating values
+    const rating = document.querySelector('input[name="rating"]:checked');
+    const comment = document.getElementById("comment").value;
+
+    if (!rating || comment.trim() === "") {
+        document.getElementById("error-message").innerText = "Please provide a rating and comment.";
+        return;
+    }
+
+    // Get the rating value
+    const ratingValue = rating.value;
+
+    // Here you would typically send the rating and comment data to your server
+    // For now, we'll just log them
+    console.log("Rating:", ratingValue);
+    console.log("Comment:", comment);
+
+    alert("Your comment and rating have been submitted!");
+
+    // Clear the form
+    document.querySelector('input[name="rating"]:checked').checked = false;
+    document.getElementById("comment").value = "";
+}

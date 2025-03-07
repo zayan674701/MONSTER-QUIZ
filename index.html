@@ -6,94 +6,215 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MONSTER QUIZ - Home</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <!-- Header -->
-    <header>
-        <div class="logo">
-            <h1>MONSTER QUIZ</h1>
-        </div>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-        <nav id="menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="create.html">Create Quiz</a></li>
-                <li><a href="play.html">Play Quiz</a></li>
-                <li><a href="results.html">View Results</a></li>
-         
-                <li><a href="login.html">Login</a></li>
+    <main>
+        
+        <!-- Your homepage content goes here -->
+
+        <header>
+            <div class="logo">
+                <h1>MONSTER QUIZ</h1>
+            </div>
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <nav id="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="create.html">Create Quiz</a></li>
+                    <li><a href="play.html">Play Quiz</a></li>
+                    <li><a href="results.html">View Results</a></li>
+                    <li><a href="admin.html">admin</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    
+                </ul>
+            </nav>
+        </header>
+    
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Create & Share Fun Quizzes!</h1>
+            <p>Challenge your friends with custom quizzes and see who scores the highest!</p>
+            <a href="create.html"><button class="cta-btn">Create Your Quiz</button></a>
+        </section>
+    
+        <!-- Information Section -->
+        <section class="info-section">
+            <h2>Why Use MONSTER QUIZ?</h2>
+            <div class="info-box">
+                <div class="info-item">
+                    <i>📝</i>
+                    <h3>Easy Quiz Creation</h3>
+                    <p>Make quizzes in minutes with simple tools.</p>
+                </div>
+                <div class="info-item">
+                    <i>🔗</i>
+                    <h3>Share Instantly</h3>
+                    <p>Generate a link and challenge your friends.</p>
+                </div>
+                <div class="info-item">
+                    <i>📊</i>
+                    <h3>Track Scores</h3>
+                    <p>See how well your friends do in real-time.</p>
+                </div>
+            </div>
+        </section>
+    
+        <section class="recent-quizzes">
+            <h2>Recent Quizzes</h2>
+            <div class="quiz-list">
+                <div class="quiz-item">
+                    <h3>General Knowledge</h3>
+                    <p>Test your knowledge on a variety of topics.</p>
+                    <a href="animal.html" class="btn-secondary">Animal quiz</a>
+                </div>
+                <div class="quiz-item">
+                    <h3>Science & Nature</h3>
+                    <p>Challenge yourself with questions about the natural world.</p>
+                    <a href="food.html" class="btn-secondary">Food Quiz</a>
+                </div>
+                <div class="quiz-item">
+                    <h3>History</h3>
+                    <p>Do you know the facts from history? Test your knowledge.</p>
+                    <a href="acctor.html" class="btn-secondary">Actor Quiz</a>
+                </div>
+            </div>
+        </section>
+    
+        <section class="testimonials">
+            <h2>User Testimonials</h2>
+            <div class="testimonial-item">
+                <p>"Monster Quiz is the best way to challenge my friends and see who knows more!"</p>
                 
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Create & Share Fun Quizzes!</h1>
-        <p>Challenge your friends with custom quizzes and see who scores the highest!</p>
-        <a href="create.html"><button class="cta-btn">Create Your Quiz</button></a>
-    </section>
-
-    <!-- Information Section -->
-    <section class="info-section">
-        <h2>Why Use MONSTER QUIZ?</h2>
-        <div class="info-box">
-            <div class="info-item">
-                <i>📝</i>
-                <h3>Easy Quiz Creation</h3>
-                <p>Make quizzes in minutes with simple tools.</p>
             </div>
-            <div class="info-item">
-                <i>🔗</i>
-                <h3>Share Instantly</h3>
-                <p>Generate a link and challenge your friends.</p>
+            <div class="testimonial-item">
+                <p>"I love how easy it is to create my own quiz and share it with others."</p>
+                
             </div>
-            <div class="info-item">
-                <i>📊</i>
-                <h3>Track Scores</h3>
-                <p>See how well your friends do in real-time.</p>
+        </section>
+    
+        <div class="rate">
+    
+        <div class="container">
+            <h3>Rate and Comment on Our Website</h3>
+    
+            <!-- Rating Options (1-5 stars) -->
+            <div class="rating">
+                <label for="rating">Rate the website: </label>
+                <input type="radio" name="rating" value="1"> 1
+                <input type="radio" name="rating" value="2"> 2
+                <input type="radio" name="rating" value="3"> 3
+                <input type="radio" name="rating" value="4"> 4
+                <input type="radio" name="rating" value="5"> 5
             </div>
+    
+            <!-- Comment Section -->
+            <div class="comment">
+                <label for="comment">Your Comment: </label>
+                <textarea id="comment" placeholder="Write your comment..."></textarea>
+            </div>
+    
+            <!-- Submit Button -->
+            <button onclick="submitCommentAndRating()" class="bbt">Submit</button>
+    
+            <!-- Error message -->
+            <p class="error-message" id="error-message"></p>
         </div>
-    </section>
-
-    <section class="recent-quizzes">
-        <h2>Recent Quizzes</h2>
-        <div class="quiz-list">
-            <div class="quiz-item">
-                <h3>General Knowledge</h3>
-                <p>Test your knowledge on a variety of topics.</p>
-                <a href="animal.html" class="btn-secondary">Animal quiz</a>
-            </div>
-            <div class="quiz-item">
-                <h3>Science & Nature</h3>
-                <p>Challenge yourself with questions about the natural world.</p>
-                <a href="food.html" class="btn-secondary">Food Quiz</a>
-            </div>
-            <div class="quiz-item">
-                <h3>History</h3>
-                <p>Do you know the facts from history? Test your knowledge.</p>
-                <a href="acctor.html" class="btn-secondary">Actor Quiz</a>
-            </div>
+    
+         <!-- Displaying Public Comments and Ratings -->
+         <div class="public-reviews">
+            <h3>Public Comments and Ratings</h3>
+            <div id="reviews-list"></div>
         </div>
-    </section>
-
-    <section class="testimonials">
-        <h2>User Testimonials</h2>
-        <div class="testimonial-item">
-            <p>"Monster Quiz is the best way to challenge my friends and see who knows more!"</p>
+    
+        <div class="subscription-container">
+            <h2>Subscribe to Premium</h2>
+            <p>Unlock all the exciting features with a premium subscription.</p>
+    
+            <!-- Pricing Plans -->
+            <div class="pricing-plans">
+                <div class="plan">
+                    <h3>Basic Plan</h3>
+                    <p><strong>Price:</strong> $5 / month</p>
+                    <ul>
+                        <li>Access to basic quizzes</li>
+                        <li>Unlimited attempts on public quizzes</li>
+                        <li>Limited customization</li>
+                    </ul>
+                    <button onclick="payWithEasyPaisa()">Subscribe</button>
+                </div>
+    
+                <div class="plan">
+                    <h3>Standard Plan</h3>
+                    <p><strong>Price:</strong> $10 / month</p>
+                    <ul>
+                        <li>All Basic Plan Features</li>
+                        <li>Unlimited custom quizzes</li>
+                        <li>Detailed performance analytics</li>
+                        <li>Remove ads</li>
+                    </ul>
+                    <button onclick="payWithEasyPaisa()">Subscribe</button>
+                </div>
+    
+                <div class="plan">
+                    <h3>Premium Plan</h3>
+                    <p><strong>Price:</strong> $20 / month</p>
+                    <ul>
+                        <li>All Standard Plan Features</li>
+                        <li>Exclusive quizzes</li>
+                        <li>Personalized user profile</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button onclick="payWithEasyPaisa()">Subscribe</button>
+                </div>
+            </div>
+    
+            <!-- Subscription Benefits -->
+            <div class="subscription-benefits">
+                <h3>Benefits of Subscribing:</h3>
+                <ul>
+                    <li>Access to exclusive quizzes not available to free users</li>
+                    <li>Get detailed results and performance analytics</li>
+                    <li>Play unlimited quizzes without any restrictions</li>
+                    <li>Customize quizzes with your own images and themes</li>
+                    <li>Priority access to new quizzes</li>
+                    <li>Remove ads for a better, uninterrupted experience</li>
+                    <li>Personalized user profile and enhanced features</li>
+                </ul>
+            </div>
+    
+            <!-- Payment Upload Section -->
+            <div class="payment-upload" style="display:none;">
+                <h3>Upload Payment Screenshot</h3>
+                <p>If you've made the payment, please upload the payment screenshot here:</p>
+                <input type="file" id="payment-screenshot" accept="image/*">
+                <button onclick="submitPaymentScreenshot()">Submit</button>
+            </div>
             
+            <!-- Payment Instructions -->
+            <div class="payment-options">
+                <button onclick="payWithEasyPaisa()">Pay with EasyPaisa</button>
+                <button onclick="payWithCreditCard()">Pay with Credit Card</button>
+            </div>
+    
+            <!-- Payment Confirmation Section -->
+            <div id="payment-confirmation" style="display:none;">
+                <h3>Payment Successful!</h3>
+                <p>Your payment has been processed. Thank you for subscribing.</p>
+                <button onclick="showExclusiveFeatures()">Unlock Exclusive Features</button>
+            </div>
         </div>
-        <div class="testimonial-item">
-            <p>"I love how easy it is to create my own quiz and share it with others."</p>
-            
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
-    </footer>
+    
+    </div>
+    
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+        </footer>
+    </main>
+   
 
    <!-- ✅ Load Firebase Scripts in the Correct Order -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
@@ -102,6 +223,45 @@
 <script src="script.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8074404404042168"
      crossorigin="anonymous"></script>
+
+
+<script>
+     // EasyPaisa Payment Simulation
+     function payWithEasyPaisa() {
+         // Simulate EasyPaisa Payment link
+         alert("Redirecting to EasyPaisa payment page...");
+         // You would replace this URL with the actual EasyPaisa payment API link
+         window.location.href = "https://www.easypaisa.com.pk"; // Example EasyPaisa link
+     }
+
+     // Payment via Credit Card (Could be linked to Stripe or another service)
+     function payWithCreditCard() {
+         alert("Redirecting to Credit Card payment page...");
+         // Example: You can use Stripe for Credit Card payments
+         window.location.href = "https://www.stripe.com"; // Placeholder link
+     }
+
+     // Function to handle successful payment
+     function showExclusiveFeatures() {
+         document.getElementById("payment-confirmation").style.display = "none";
+         alert("You now have access to all the exclusive features!");
+         // Show any features or redirect the user to a new page if necessary
+     }
+
+     // Function to handle Payment Screenshot upload
+     function submitPaymentScreenshot() {
+         let screenshot = document.getElementById("payment-screenshot").files[0];
+         if (screenshot) {
+             alert("Payment screenshot submitted successfully!");
+             document.querySelector('.payment-upload').style.display = 'none';
+             document.getElementById("payment-confirmation").style.display = 'block';
+         } else {
+             alert("Please upload the payment screenshot.");
+         }
+     }
+
+</script>
+     
 
 </body>
 </html>

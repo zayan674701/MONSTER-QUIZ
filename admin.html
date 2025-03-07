@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Manage Website</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Admin Panel</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="create.html">Create Quiz</a></li>
+                <li><a href="play.html">Play Quiz</a></li>
+                <li><a href="login.html">Logout</a></li>
+               
+            </ul>
+        </nav>
+        
+    </header>
+
+    <div class="admin-container">
+        <div class="sidebar">
+            <h3>Admin Dashboard</h3>
+            <ul>
+                <li><a href="#add-quiz">Add Quiz</a></li>
+                <li><a href="#remove-quiz">Remove Quiz</a></li>
+                <li><a href="#manage-users">Manage Users</a></li>
+                <li><a href="#theme-settings">Change Theme</a></li>
+                <li><a href="acctor.html">Actor quiz</a></li>
+                <li><a href="food.html">Food quiz</a></li>
+                <li><a href="animal.html">Animal quiz</a></li>
+            </ul>
+        </div>
+
+        
+
+        <div class="admin-content">
+            <section id="add-quiz">
+                <h2>Add Quiz</h2>
+                <input type="text" id="quiz-title" placeholder="Quiz Title">
+                <textarea id="quiz-description" placeholder="Quiz Description"></textarea>
+                <button onclick="addQuiz()">Add Quiz</button>
+            </section>
+
+            <section id="remove-quiz">
+                <h2>Remove Quiz</h2>
+                <input type="text" id="quiz-remove-title" placeholder="Enter Quiz Title to Remove">
+                <button onclick="removeQuiz()">Remove Quiz</button>
+            </section>
+
+            <section id="manage-users">
+                <h2>Manage Users</h2>
+                <ul id="user-list"></ul>
+                <button onclick="removeUser()">Remove User</button>
+            </section>
+
+            <section id="theme-settings">
+                <h2>Theme Customization</h2>
+                <label for="theme-color">Choose Theme Color:</label>
+                <input type="color" id="theme-color" value="#4CAF50">
+                <button onclick="applyThemeColor()">Apply Theme</button>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Platform. All rights reserved.</p>
+    </footer>
+
+    <script src="admin-script.js"></script>
+    <script src="firebase-config.js"></script>
+</body>
+</html>
