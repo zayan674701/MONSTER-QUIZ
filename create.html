@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Kings - Create Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz Creator</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="create.html">Create Quiz</a></li>
+                <li><a href="play.html">Play Quiz</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="quiz-container">
+        <h2>Create Your Quiz</h2>
+        <input type="text" id="quizTitle" placeholder="Enter Quiz Title" class="cr">
+        
+        <div id="questions-container"></div>
+        
+        <button onclick="addQuestion()">Add Question</button>
+        <button onclick="saveQuiz()">Save Quiz</button>
+
+        <label for="quizType">Quiz Type:</label>
+        <select id="quizType">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select>
+
+        <div id="share-container" style="display:none; margin-top: 20px;">
+            <p>Share this quiz with your friends:</p>
+            <input type="text" id="quiz-link" readonly>
+            <button onclick="copyLink()">Copy Link</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addQuestion() {
+            let container = document.getElementById("questions-container");
+
+            let questionBox = document.createElement("div");
+            questionBox.classList.add("question-box");
+
+            let questionInput = document.createElement("input");
+            questionInput.type = "text";
+            questionInput.placeholder = "Enter Question";
+            
+            let imgInput = document.createElement("input");
+            imgInput.type = "file";
+            imgInput.accept = "image/*";
+            
+            let optionsContainer = document.createElement("div");
+            for (let i = 0; i < 4; i++) {
+                let option = document.createElement("input");
+                option.type = "text";
+                option.placeholder = "Option " + (i + 1);
+                optionsContainer.appendChild(option);
+            }
+
+            let correctAnswer = document.createElement("input");
+            correctAnswer.type = "number";
+            correctAnswer.placeholder = "Correct Option (1-4)";
+            correctAnswer.min = "1";
+            correctAnswer.max = "4";
+
+            questionBox.appendChild(questionInput);
+            questionBox.appendChild(imgInput);
+            questionBox.appendChild(optionsContainer);
+            questionBox.appendChild(correctAnswer);
+            container.appendChild(questionBox);
+        }
+
+        function saveQuiz() {
+            let quizTitle = document.getElementById("quizTitle").value;
+            let quizType = document.getElementById("quizType").value;
+
+            if (!quizTitle) {
+                alert("Please enter a quiz title!");
+                return;
+            }
+
+            let quizData = { type: quizType, questions: [] };
+
+            let questionBoxes = document.querySelectorAll(".question-box");
+            questionBoxes.forEach(box => {
+                let questionText = box.children[0].value;
+                let imageFile = box.children[1].files[0];
+                let options = Array.from(box.children[2].children).map(opt => opt.value);
+                let correctOption = box.children[3].value;
+
+                if (!questionText || options.some(opt => !opt) || !correctOption) {
+                    alert("Please complete all fields!");
+                    return;
+                }
+
+                let question = {
+                    text: questionText,
+                    image: imageFile ? URL.createObjectURL(imageFile) : null,
+                    options: options,
+                    correct: correctOption
+                };
+                quizData.questions.push(question);
+            });
+
+            localStorage.setItem("quiz_" + quizTitle, JSON.stringify(quizData));
+
+            let quizLink = `${window.location.origin}/play.html?quiz=${encodeURIComponent(quizTitle)}`;
+            document.getElementById("quiz-link").value = quizLink;
+            document.getElementById("share-container").style.display = "block";
+
+            alert("Quiz saved successfully!");
+        }
+
+        function copyLink() {
+            let linkField = document.getElementById("quiz-link");
+            linkField.select();
+            document.execCommand("copy");
+            alert("Quiz link copied!");
+        }
+    </script>
+</body>
+</html>

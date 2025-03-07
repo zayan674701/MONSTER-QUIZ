@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONSTER QUIZ - Play Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz Creator</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="create.html">Create Quiz</a></li>
+                <li><a href="play.html">Play Quiz</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="quiz-container">
+        <h2>Select a Quiz</h2>
+        <select id="quizList"></select>
+        <button onclick="startQuiz()">Start Quiz</button>
+
+        <div id="quizSection" class="hidden">
+            <h2 id="quizTitle"></h2>
+            <div id="questionBox"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Creator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentQuiz = [];
+        let currentIndex = 0;
+
+        function loadQuizList() {
+            let quizList = document.getElementById("quizList");
+            quizList.innerHTML = "";
+            
+            for (let key in localStorage) {
+                if (key.startsWith("quiz_")) {
+                    let option = document.createElement("option");
+                    option.value = key;
+                    option.textContent = key.replace("quiz_", "");
+                    quizList.appendChild(option);
+                }
+            }
+        }
+
+        function startQuiz() {
+            let selectedQuiz = document.getElementById("quizList").value;
+            if (!selectedQuiz) {
+                alert("Please select a quiz!");
+                return;
+            }
+
+            currentQuiz = JSON.parse(localStorage.getItem(selectedQuiz));
+            currentIndex = 0;
+            document.getElementById("quizTitle").textContent = selectedQuiz.replace("quiz_", "");
+            document.getElementById("quizSection").classList.remove("hidden");
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentIndex >= currentQuiz.length) {
+                alert("Quiz Completed!");
+                document.getElementById("quizSection").classList.add("hidden");
+                return;
+            }
+
+            let questionData = currentQuiz[currentIndex];
+            let questionBox = document.getElementById("questionBox");
+            questionBox.innerHTML = `<h3>${questionData.text}</h3>`;
+
+            if (questionData.image) {
+                let img = document.createElement("img");
+                img.src = questionData.image;
+                questionBox.appendChild(img);
+            }
+
+            questionData.options.forEach((option, index) => {
+                let btn = document.createElement("button");
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index + 1, questionData.correct);
+                questionBox.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            let buttons = document.querySelectorAll("#questionBox button");
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selected == correct) {
+                buttons[selected - 1].classList.add("correct");
+            } else {
+                buttons[selected - 1].classList.add("wrong");
+                buttons[correct - 1].classList.add("correct");
+            }
+
+            setTimeout(() => {
+                currentIndex++;
+                showQuestion();
+            }, 1000);
+        }
+
+        function loadQuizList() {
+    let quizList = document.getElementById("quizList");
+    quizList.innerHTML = "";
+
+    let loggedInUser = localStorage.getItem("loggedInUser");
+
+    for (let key in localStorage) {
+        if (key.startsWith("quiz_")) {
+            let quizData = JSON.parse(localStorage.getItem(key));
+            if (quizData.type === "public" || loggedInUser) {
+                let option = document.createElement("option");
+                option.value = key;
+                option.textContent = key.replace("quiz_", "") + ` (${quizData.type})`;
+                quizList.appendChild(option);
+            }
+        }
+    }
+}
+
+
+function getQuizFromURL() {
+    let params = new URLSearchParams(window.location.search);
+    let quizTitle = params.get("quiz");
+    
+    if (quizTitle) {
+        document.getElementById("quizList").value = "quiz_" + quizTitle;
+        startQuiz();
+    }
+}
+
+window.onload = function () {
+    loadQuizList();
+    getQuizFromURL();
+};
+
+
+        window.onload = loadQuizList;
+    </script>
+</body>
+</html>
